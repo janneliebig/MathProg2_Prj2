@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 from generate_datasets import Generate, DATA_TYPE
 
-def plot_datasets(obj: Generate):
+def plot_std_datasets(gen: Generate):
     fig, axs = plt.subplots(2,2)
     fig.tight_layout(h_pad=2)
 
-    X_1, y_1 = Generate.get_dataset(obj, DATA_TYPE.CIRCLES)
-    X_2, y_2 = Generate.get_dataset(obj, DATA_TYPE.MOONS)
-    X_3, y_3 = Generate.get_dataset(obj, DATA_TYPE.BLOBS)
+    X_1, y_1 = Generate.get_dataset(gen, DATA_TYPE.CIRCLES)
+    X_2, y_2 = Generate.get_dataset(gen, DATA_TYPE.MOONS)
+    X_3, y_3 = Generate.get_dataset(gen, DATA_TYPE.BLOBS)
 
     axs[0,0].set_title("Circles")
     axs[0,0].scatter(X_1[:, 0], X_1[:, 1], marker="o", c=y_1, s=40, edgecolor="k")
@@ -18,7 +18,10 @@ def plot_datasets(obj: Generate):
     axs[1,0].set_title("Blobs")
     axs[1,0].scatter(X_3[:, 0], X_3[:, 1], marker="o", c=y_3, s=40, edgecolor="k")
 
-    fig.suptitle('Datasets', fontsize=22)
+    title = 'Datasets'
+    if gen.is_scaled: title += ' [Scaled]'
+        
+    fig.suptitle(title, fontsize=22)
     plt.subplots_adjust(top=0.85)
 
     plt.show()
